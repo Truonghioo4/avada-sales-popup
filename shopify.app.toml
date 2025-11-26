@@ -1,0 +1,19 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ac41d1c7cb21958ae1ce1a1c81e386eb"
+name = "Avada Sales Notifications"
+application_url = "https://example.com"
+embedded = true
+
+[webhooks]
+api_version = "2026-01"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers, read_reports,read_analytics, read_customer_events, read_themes, write_themes,read_orders, read_products, read_script_tags,write_script_tags"
+
+[auth]
+redirect_urls = [ "https://example.com/api/auth" ]
+
+[build]
+automatically_update_urls_on_dev = true

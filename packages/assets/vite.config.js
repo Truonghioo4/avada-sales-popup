@@ -72,7 +72,7 @@ if (!isProduction && shopifyApiKey) {
       fs.writeFileSync(runtimeFile, JSON.stringify(configData, null, 4));
     });
 
-    updateThemeAppExtFile('../../extensions/theme-extension/assets/avada-embed.js');
+    updateThemeAppExtFile('../../extensions/theme-extension/assets/avada-sales-pop.js');
 
     updateEnvFile('.env.development', {
       VITE_SHOPIFY_API_KEY: shopifyApiKey
@@ -123,7 +123,9 @@ const proxyConfig = {
   '^/authSa(/|(\\?.*)?$)': proxyOptions,
   '^/auth(/|(\\?.*)?$)': proxyOptions,
   '^/apiSa(/|(\\?.*)?$)': proxyOptions,
-  '^/scripttag(/|(\\?.*)?$)': proxyOptions
+  '^/scripttag(/|(\\?.*)?$)': proxyOptions,
+  '^/webhook(/|(\\?.*)?$)': proxyOptions,
+  '^/client-api(/|(\\?.*)?$)': proxyOptions
 };
 
 /** @type {ServerOptions} */

@@ -2,6 +2,9 @@
 
 // subscription plan badge
 .Polaris-TopBar {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) !important;
   .Avada-Pricing__Badge {
     position: absolute;
     left: 6.5rem;

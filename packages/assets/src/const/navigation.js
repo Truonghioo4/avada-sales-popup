@@ -1,18 +1,14 @@
+import {NotificationIcon, SettingsIcon} from '@shopify/polaris-icons';
+
 export const navigationLinks = [
   {
-    label: 'Samples',
-    destination: '/samples'
+    label: 'Notifications',
+    destination: '/notifications',
+    icon: NotificationIcon
   },
   {
     label: 'Settings',
-    destination: '/settings'
-  },
-  {
-    label: 'Tables',
-    destination: '/tables'
-  },
-  {
-    label: 'Optional Scopes',
-    destination: '/optional-scopes'
+    destination: '/settings',
+    icon: SettingsIcon
   }
 ];

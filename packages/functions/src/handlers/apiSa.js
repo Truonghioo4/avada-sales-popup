@@ -4,7 +4,7 @@ import * as errorService from '@functions/services/errorService';
 import apiRouter from '@functions/routes/api';
 import render from 'koa-ejs';
 import path from 'path';
-import {verifyRequest} from '@avada/core';
+// import {verifyRequest} from '@avada/core';
 
 // Initialize all demand configuration for an application
 const api = new App();
@@ -17,7 +17,7 @@ render(api, {
   viewExt: 'html'
 });
 api.use(createErrorHandler());
-api.use(verifyRequest());
+// api.use(verifyRequest());
 
 const router = apiRouter();
 // Register all routes for the application
@@ -26,5 +26,4 @@ api.use(router.routes());
 
 // Handling all errors
 api.on('error', errorService.handleError);
-
 export default api;

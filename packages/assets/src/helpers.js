@@ -29,7 +29,6 @@ export function getHost() {
   const localStorageHost = localStorage.getItem('avada-dev-host');
   const host = new URLSearchParams(location.search).get('host') || localStorageHost;
   localStorage.setItem('avada-dev-host', host);
-
   return host;
 }
 
@@ -59,6 +58,7 @@ function createApi() {
         options.headers['Content-Type'] = 'application/json';
       }
       const response = await fetchFunction(prefix + uri, options);
+
       checkHeadersForReauthorization(response.headers, embedApp);
       return await response.json();
     };

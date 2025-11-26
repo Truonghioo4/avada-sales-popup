@@ -8,6 +8,7 @@ import {formatDateFields} from '@avada/firestore-utils';
  * @return {string}
  */
 export function getCurrentShop(ctx) {
+  // console.log(ctx);
   return ctx.state.user.shopID;
 }
 
@@ -18,6 +19,7 @@ export function getCurrentShop(ctx) {
  * @returns {*}
  */
 export function getCurrentUserInstance(ctx) {
+  console.log('user: ', ctx.state.user);
   return ctx.state.user;
 }
 
@@ -41,5 +43,6 @@ export function getCurrentShopData(ctx) {
  * @returns {*}
  */
 export function getCurrentSession(ctx) {
+  console.log('session: ', ctx.state.shopifySession);
   return ctx.state.shopifySession;
 }

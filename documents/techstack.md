@@ -97,7 +97,7 @@ packages/
 - `useDeleteApi`: Delete resources, with toast notifications
 - All hooks support callbacks, error handling, and manual data updates
 
-### Skeleton Loading
+### Skeleton LoadingPage
 - Use Polaris skeleton components (`SkeletonPage`, `SkeletonBodyText`, etc.)
 - Match skeleton layout to actual content
 - Show skeleton while loading, progressive loading for large pages

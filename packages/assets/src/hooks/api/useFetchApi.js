@@ -26,13 +26,13 @@ export default function useFetchApi({
   const [pageInfo, setPageInfo] = useState({});
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
-
   async function fetchApi(apiUrl, params = null, keepPreviousData = false) {
     try {
       setLoading(true);
       const path = apiUrl || url;
       const separateChar = path.includes('?') ? '&' : '?';
       const query = params ? separateChar + stringify(params) : '';
+      console.log('timestamp: ', stringify({sort: 'timestamp_desc'}));
       const resp = await api(path + query);
       if (resp.hasOwnProperty('pageInfo')) setPageInfo(resp.pageInfo);
       if (resp.hasOwnProperty('count')) setCount(resp.count);
@@ -73,6 +73,7 @@ export default function useFetchApi({
     total,
     setTotal,
     loading,
+    // setLoading,
     fetched,
     setFetched
   };

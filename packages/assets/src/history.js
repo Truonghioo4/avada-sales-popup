@@ -1,7 +1,6 @@
 import {createBrowserHistory} from 'history';
-import {getUrl} from '@assets/helpers/getUrl';
 
-function createBrowserHistoryWithBasename(basename = getUrl('')) {
+function createBrowserHistoryWithBasename(basename = '') {
   const history = createBrowserHistory();
   history.basename = basename;
 
@@ -36,7 +35,7 @@ function createBrowserHistoryWithBasename(basename = getUrl('')) {
 
 function appendBaseName(basename, to, state, callback) {
   if (to.startsWith('/auth/shopify')) {
-    return callback('/embed', state);
+    return callback('/', state);
   }
   if (typeof to === 'string') {
     to = basename + to;
@@ -51,4 +50,4 @@ function appendBaseName(basename, to, state, callback) {
   return callback(to, state);
 }
 
-export const history = createBrowserHistoryWithBasename(getUrl(''));
+export const history = createBrowserHistoryWithBasename('');

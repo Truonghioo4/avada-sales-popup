@@ -24,13 +24,13 @@ export function prepareDoc({doc, data = {}, keyId = 'id'}) {
  * @param limit
  * @returns {Promise<{data: *[], total?: number, pageInfo: {hasNext: boolean, hasPre: boolean, totalPage?: number}}>}
  */
-export async function paginateQuery({
+export async function paginateQuery(
   queriedRef,
   collection,
   query,
   defaultLimit = query.limit,
   pickedFields = []
-}) {
+) {
   const limit = parseInt(defaultLimit || '20');
   let total;
   let totalPage;
@@ -42,13 +42,12 @@ export async function paginateQuery({
   const getAll = query.getAll || !limit;
   let hasPre = false;
   let hasNext = false;
-
   if (pickedFields.length) queriedRef = queriedRef.select(...pickedFields);
+
   if (!getAll) {
     if (query.after) {
       const after = await collection.doc(query.after).get();
       queriedRef = queriedRef.startAfter(after);
-
       hasPre = true;
     }
     if (query.before) {
@@ -126,7 +125,7 @@ export async function verifyHasNext(objectDocs, queriedRef) {
  * @returns {{sortField: *, direction: *}}
  */
 export function getOrderBy(sortType) {
-  const [sortField, direction] = sortType ? sortType.split('_') : ['updatedAt', 'desc'];
+  const [sortField, direction] = sortType ? sortType.split('_') : ['timestamp', 'desc'];
   return {sortField, direction};
 }
 

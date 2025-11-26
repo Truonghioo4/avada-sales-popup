@@ -110,7 +110,7 @@ Folder Guidelines:
 - Use useContext to avoid prop drilling
 - Keep state localized when possible
 
-Skeleton Loading Guidelines:
+Skeleton LoadingPage Guidelines:
 - Always implement skeleton loading states for pages that fetch data
 - Create a separate skeleton component for each page:
   ```javascript
@@ -182,7 +182,7 @@ API Hooks Guidelines:
   }) {
     return {
       data,          // Response data
-      loading,       // Loading state
+      loading,       // LoadingPage state
       fetched,       // Whether data has been fetched
       pageInfo,      // Pagination information
       count,         // Total count of items
@@ -203,7 +203,7 @@ API Hooks Guidelines:
     errorMsg = 'Failed to save'
   }) {
     return {
-      creating,      // Loading state
+      creating,      // LoadingPage state
       handleCreate   // Function to create resource
     };
   }
@@ -215,7 +215,7 @@ API Hooks Guidelines:
     successCallback = () => {}
   }) {
     return {
-      deleting,      // Loading state
+      deleting,      // LoadingPage state
       handleDelete   // Function to delete resource
     };
   }
@@ -513,7 +513,7 @@ Additional Technical Guidelines:
     - Show contextual help appropriately
     - Use consistent terminology
 
-  - Loading and Interaction:
+  - LoadingPage and Interaction:
     - Use proper loading states and skeleton pages
     - Implement smooth transitions
     - Show appropriate progress indicators

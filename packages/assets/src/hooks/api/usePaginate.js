@@ -20,7 +20,7 @@ export default function usePaginate({
   keepPreviousData = false,
   presentData = null,
   defaultLimit = 20,
-  defaultSort = 'createdAt:asc',
+  defaultSort = 'createdAt_desc',
   searchKey = 'searchKey',
   initQueries = {}
 }) {
@@ -69,6 +69,7 @@ export default function usePaginate({
     nextPage: () => onPaginate('next'),
     onQueryChange,
     onQueriesChange,
-    ...fetchApiHook
+    ...fetchApiHook,
+    page: queries.page
   };
 }
