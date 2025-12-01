@@ -28,16 +28,13 @@ export function isUrlMatch(currentPath, targetPath) {
   const current = normalizePath(currentPath);
   const target = normalizePath(targetPath);
 
-  // Trường hợp đặc biệt: trang chủ
   if (target === '/') {
     return current === '/';
   }
 
-  // Kiểm tra exact match
   if (current === target) {
     return true;
   }
-  // Kiểm tra nếu current là trang con của target
-  // Ví dụ: target = '/product', current = '/product/abc' => true
+
   return current.startsWith(target + '/');
 }

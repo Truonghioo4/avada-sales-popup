@@ -9,7 +9,7 @@ import {BlockStack, Button, Card, InlineStack, Layout, Page, Text} from '@shopif
  */
 export default function Home() {
   const [enabled, setEnabled] = useState(false);
-
+  const activeAppUrl = `https://${shopify.config.shop}/admin/themes/current/editor?context=apps&activateAppId=${shopify.config.apiKey}/avada-sales-pop`;
   return (
     <Page title="Dashboard">
       <Layout>
@@ -18,12 +18,15 @@ export default function Home() {
             <Card>
               <InlineStack blockAlign="center">
                 <Text as="span">
-                  App status is <strong>{enabled ? 'enabled' : 'disabled'}</strong>
+                  Please enable the app by clicking the button below and then <strong>Save</strong>{' '}
+                  your theme. Our features will not be shown until you enable.
                 </Text>
                 <div style={{flex: 1}} />
                 <Button
                   variant={enabled ? 'secondary' : 'primary'}
-                  onClick={() => setEnabled(prev => !prev)}
+                  onClick={() => {
+                    window.open(activeAppUrl, '_blank');
+                  }}
                 >
                   {enabled ? 'Disable' : 'Enable'}
                 </Button>

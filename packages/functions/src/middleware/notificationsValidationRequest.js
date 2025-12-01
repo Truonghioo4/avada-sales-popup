@@ -11,6 +11,7 @@ export default async function notificationsValidationRequest(ctx, next) {
       productId: yup.number().integer(),
       timestamp: yup.date().default(() => new Date()),
       productImage: yup.string().url(),
+      productUrl: yup.string().url(),
       shopifyDomain: yup.string()
     });
     ctx.req.body = await notificationSchema.validate(notificationData);

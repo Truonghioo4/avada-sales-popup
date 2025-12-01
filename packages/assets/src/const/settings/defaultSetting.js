@@ -1,5 +1,7 @@
 const defaultSettings = {
   position: 'bottom-left',
+  mobile_position: 'bottom',
+  isShowOnMobile: true,
   hideTimeAgo: false,
   truncateProductName: false,
   displayDuration: 3,

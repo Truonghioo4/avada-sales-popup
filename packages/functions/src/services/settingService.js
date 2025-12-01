@@ -8,6 +8,8 @@ export async function createDefaultSettings(shop) {
   if (await settingsRepository.findByShopId(shop.id)) return;
   await settingsRepository.create(shop.id, {
     position: 'bottom-left',
+    mobile_position: 'bottom',
+    isShowOnMobile: true,
     hideTimeAgo: false,
     truncateProductName: false,
     displayDuration: 3,

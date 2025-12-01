@@ -10,17 +10,17 @@ query getOrder($orderId: ID!) {
             country
         }
         lineItems(first: 1) {
-            edges {
-                node {
+            nodes {
+                title
+                product {
+                    id
                     title
-                    product {
-                        id
-                        title
-                        featuredMedia {
-                            preview {
-                                image {
-                                    url
-                                }
+                    handle
+                    onlineStorePreviewUrl
+                    featuredMedia {
+                        preview {
+                            image {
+                                url
                             }
                         }
                     }

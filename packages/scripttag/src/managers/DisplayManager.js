@@ -3,7 +3,10 @@ import {sleep} from '../helpers/utils/sleep';
 import {render} from 'preact';
 import React from 'preact/compat';
 import NotificationPopup from '../components/NotificationPopup/NotificationPopup';
-import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js';
+
+/**
+ * Display Manager class
+ */
 export default class DisplayManager {
   constructor() {
     this.notifications = [];
@@ -13,12 +16,13 @@ export default class DisplayManager {
     this.notifications = notifications;
     this.settings = settings;
     this.insertContainer();
+    const {firstDelay, popsInterval, maxPopsDisplay, displayDuration} = settings;
 
-    await sleep(settings.firstDelay * 1000);
-    for (const notification of notifications.slice(0, settings.maxPopsDisplay)) {
+    await sleep(firstDelay * 1000);
+    for (const notification of notifications.slice(0, maxPopsDisplay)) {
       this.display(notification, settings);
-      await this.fadeOut(settings.displayDuration);
-      await sleep(settings.popsInterval * 1000);
+      await this.fadeOut(displayDuration);
+      await sleep(popsInterval * 1000);
     }
   }
   async fadeOut(duration) {
@@ -32,13 +36,15 @@ export default class DisplayManager {
   }
 
   display(notification, settings) {
+    const {position, mobile_position, hideTimeAgo, truncateProductName} = settings;
     const container = document.querySelector('#Avada-SalePop');
     render(
       <NotificationPopup
         {...notification}
-        position={settings.position}
-        hideTimeAgo={settings.hideTimeAgo}
-        truncateProductName={settings.truncateProductName}
+        position={position}
+        mobile_position={mobile_position}
+        hideTimeAgo={hideTimeAgo}
+        truncateProductName={truncateProductName}
       />,
       container
     );

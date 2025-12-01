@@ -1,3 +1,7 @@
+/**
+ * @param obj
+ * @returns {{}|*|{[p: string]: *}}
+ */
 export default function cleanEmptyField(obj) {
   return Object.keys(obj).reduce((prev, field) => {
     const value = obj[field];

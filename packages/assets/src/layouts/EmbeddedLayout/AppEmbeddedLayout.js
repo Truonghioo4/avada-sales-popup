@@ -16,7 +16,7 @@ function AppEmbeddedLayout({children}) {
   const {loading, toast} = state;
   return (
     <Frame>
-      {children}
+      <div className="Avada-Frame">{children}</div>
       {loading && <Loading />}
       {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
     </Frame>

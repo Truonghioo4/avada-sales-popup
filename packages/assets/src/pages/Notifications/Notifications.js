@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Card,
   Divider,
@@ -10,12 +11,18 @@ import {
   Text
 } from '@shopify/polaris';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
-import {SaveBar, TitleBar, Modal} from '@shopify/app-bridge-react';
+import {TitleBar, Modal} from '@shopify/app-bridge-react';
 import LoadingPage from '@assets/pages/Loading/LoadingPage';
 import useDeleteApi from '@assets/hooks/api/useDeleteApi';
 import Loading from '@assets/components/Loading';
 import {formatToDate, formatToTimeAgo} from '@assets/helpers/utils/formatTimestamp';
 import usePaginate from '@assets/hooks/api/usePaginate';
+
+/**
+ * Notifications page component
+ * @returns {React.JSX.Element}
+ * @constructor
+ */
 export default function Notifications() {
   const PAGE_LIMIT = 5;
   const {loading, data, setData, pageInfo, prevPage, nextPage, page} = usePaginate({
@@ -28,13 +35,14 @@ export default function Notifications() {
   const [selectedItems, setSelectedItems] = React.useState([]);
   const [sortValue, setSortValue] = React.useState('DATE_MODIFIED_DESC');
   const [isOpenModal, setIsOpenModal] = React.useState(false);
+
   const handleSortChange = sortItems => {
     return sortItems.sort((a, b) => {
       if (sortValue === 'DATE_MODIFIED_DESC') {
         return new Date(a.timestamp) - new Date(b.timestamp);
-      } else {
-        return new Date(b.timestamp) - new Date(a.timestamp);
       }
+
+      return new Date(b.timestamp) - new Date(a.timestamp);
     });
   };
   const handleDeleteBulk = async () => {
@@ -58,8 +66,6 @@ export default function Notifications() {
             List of sales notification from Shopify.
           </Text>
         </Layout.Section>
-        <SaveBar />
-        <TitleBar />
         <Layout.Section>
           <Card>
             <ResourceList

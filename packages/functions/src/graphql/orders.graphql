@@ -1,29 +1,27 @@
 query {
     orders(first: 30, sortKey: CREATED_AT, reverse: true) {
-        edges {
-            node {
-                id
-                createdAt
-                customer {
-                    firstName
-                }
-                shippingAddress {
-                    city
-                    country
-                }
-                lineItems(first: 1) {
-                    edges {
-                        node {
-                            title
-                            product {
-                                id
-                                title
-                                featuredMedia {
-                                    preview {
-                                        image {
-                                            url
-                                        }
-                                    }
+        nodes {
+            id
+            createdAt
+            customer {
+                firstName
+            }
+            shippingAddress {
+                city
+                country
+            }
+            lineItems(first: 1) {
+                nodes {
+                    title
+                    product {
+                        id
+                        title
+                        onlineStorePreviewUrl
+                        handle
+                        featuredMedia {
+                            preview {
+                                image {
+                                    url
                                 }
                             }
                         }

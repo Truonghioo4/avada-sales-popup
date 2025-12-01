@@ -107,26 +107,23 @@ export default function Settings() {
                 List of sales notification from Shopify.
               </Text>
             </Box>
-            <Button
-              size="large"
-              tone="success"
-              variant="primary"
-              loading={editing}
-              onClick={handleSaveInput}
-            >
+            <Button size="large" variant="primary" loading={editing} onClick={handleSaveInput}>
               Save
             </Button>
           </InlineStack>
         </Layout.Section>
         <Layout.Section>
-          <InlineGrid columns={{md: 1, lg: ['oneThird', 'twoThirds']}}>
+          <InlineGrid
+            columns={{md: 1, lg: ['oneThird', 'twoThirds']}}
+            gap={{xs: '500', sm: '500', md: '0'}}
+          >
             <NotificationPopup
-              firstName="Wellington"
-              city="South Kendrick"
-              country="Vietnam"
-              productName="Recycled Metal Keyboard with Backlight"
-              timestamp={formatToTimeAgo('2025-11-04T15:18:15.193Z')}
-              productImage="https://picsum.photos/seed/iKclrFweJ/2980/639"
+              firstName="Alex"
+              city="Fresno"
+              country="United States"
+              productName="The Multi-managed Snowboard"
+              timestamp={formatToTimeAgo('2025-11-17T04:18:19Z')}
+              productImage="https://cdn.shopify.com/s/files/1/0779/6752/4089/files/Main_9129b69a-0c7b-4f66-b6cf-c4222f18028a.jpg?v=1762163408"
             />
             <Card title="Order details" sectioned>
               <Tabs tabs={tabs} selected={selectedTab} onSelect={handleChangeTab}>

@@ -12,10 +12,23 @@
 .Avava-SP__Wrapper .Avava-SP__LinkWrapper {
   color: #333;
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 500px) {
   .Avava-SP__Wrapper {
-    left: 15px;
+    width: 350px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
   }
+  .Avava-SP-MobilePosition--top{
+    top: 60px !important;
+    bottom: auto !important;
+  }
+  .Avava-SP-MobilePosition--bottom{
+    bottom: 30px !important;
+    top: auto !important;
+
+  }
+
 }
 .Avava-SP__Wrapper img {
   max-width: 135px;
@@ -98,19 +111,19 @@
   padding-left: 8px;
 }
 
-.Avava-SP__Wrapper.top-right {
+.Avava-SP__DesktopPosition--top-right {
   top: 70px;
   right: 15px;
   left: auto;
   bottom: auto;
 }
-.Avava-SP__Wrapper.top-left {
+.Avava-SP__DesktopPosition--top-left {
   top: 70px;
   left: 15px;
   right: auto;
   bottom: auto;
 }
-.Avava-SP__Wrapper.bottom-right {
+.Avava-SP__DesktopPosition--bottom-right {
   right: 15px;
   bottom: 30px;
   top: auto;
@@ -139,6 +152,8 @@
     //transform: translateY(-20px);
   }
 }
+
+
 
 .truncate-text {
   overflow: hidden;

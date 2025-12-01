@@ -1,20 +1,22 @@
-import {Card, Layout, Page, SkeletonBodyText} from '@shopify/polaris';
+import {BlockStack, Card, Layout, Page, SkeletonBodyText} from '@shopify/polaris';
 import React from 'react';
 
 const LoadingPage = () => (
   <Page>
     <Layout>
       <Layout.Section>
-        <Card>
+        <BlockStack gap="500">
           <Card>
-            <SkeletonBodyText lines={5} />
+            <Card>
+              <SkeletonBodyText lines={5} />
+            </Card>
           </Card>
-        </Card>
-        <Card>
           <Card>
-            <SkeletonBodyText lines={5} />
+            <Card>
+              <SkeletonBodyText lines={5} />
+            </Card>
           </Card>
-        </Card>
+        </BlockStack>
       </Layout.Section>
     </Layout>
   </Page>

@@ -5,7 +5,11 @@ import {splitUrls, normalizePath, isUrlMatch} from './handleUrls';
  * @returns {boolean}
  */
 export function isShowPop(settings = {}) {
-  const {allowShow, includedUrls = '', excludedUrls = ''} = settings;
+  const {allowShow, includedUrls = '', excludedUrls = '', isShowOnMobile} = settings;
+  const deviceSize = window.innerWidth;
+  if (deviceSize < 500) {
+    if (!isShowOnMobile) return false;
+  }
   const currentUrl = window.location.pathname;
   const normalizedCurrentUrl = normalizePath(currentUrl);
 

@@ -1,6 +1,5 @@
 import {initShopify} from '@functions/services/shopifyService';
 import {loadGraphQL} from '@functions/helpers/graphql/graphqlHelpers';
-import {simplifyGraphqlResponse} from '@functions/helpers/graphql/simplifyGraphqlResponse';
 
 /**
  * @param shop
@@ -10,38 +9,36 @@ export async function getShopOrders(shop) {
   const shopify = initShopify(shop);
   const ordersQuery = loadGraphQL('/orders.graphql');
   const ordersGraphql = await shopify.graphql(ordersQuery);
-  const option = {ignoreKeys: ['data', 'orders', 'edges', 'node']};
-  const ordersSimplify = simplifyGraphqlResponse(ordersGraphql, option);
-  return ordersSimplify.map(order => ({
-    firstName: order?.customer?.firstName,
-    city: order?.shippingAddress?.city,
-    country: order?.shippingAddress?.country,
-    productName: order?.lineItems[0]?.title,
-    productId: order?.lineItems[0]?.product.id,
-    timestamp: order?.createdAt,
-    productImage: order?.lineItems[0]?.product?.featuredMedia?.preview?.image?.url
-  }));
+  return ordersGraphql.orders.nodes;
 }
 
 /**
- * @param shopify
+ * @param shop
  * @param order
- * @returns {Promise<{firstName: *, city: string, country: string, productName: *, productId: *, timestamp: *, productImage: *}>}
+ * @returns {Promise<*>}
  */
-export async function getNotificationItems(shopify, order) {
-  const ordersQuery = loadGraphQL('/order.graphql');
-  const ordersGraphql = await shopify.graphql(ordersQuery, {
+export async function getShopOrderItem(shop, order) {
+  const shopify = initShopify(shop);
+  const orderQuery = loadGraphQL('/order.graphql');
+  const orderGraphql = await shopify.graphql(orderQuery, {
     orderId: `gid://shopify/Order/${order.id}`
   });
-  const option = {ignoreKeys: ['order', 'edges', 'node']};
-  const ordersSimplify = simplifyGraphqlResponse(ordersGraphql, option);
+  return orderGraphql.order;
+}
+
+/**
+ * @param order
+ * @returns {{firstName: *, city: string, country: string, productName: *, productId: *, timestamp: *, productUrl: *, productImage: *}}
+ */
+export function pickShopOrderField(order) {
   return {
-    firstName: ordersSimplify?.customer?.firstName,
-    city: ordersSimplify?.shippingAddress?.city,
-    country: ordersSimplify?.shippingAddress?.country,
-    productName: ordersSimplify?.lineItems[0]?.title,
-    productId: ordersSimplify?.lineItems[0]?.product.id,
-    timestamp: ordersSimplify?.createdAt,
-    productImage: ordersSimplify?.lineItems[0]?.product?.featuredMedia?.preview?.image?.url
+    firstName: order?.customer?.firstName,
+    city: order?.shippingAddress?.city,
+    country: order?.shippingAddress?.country,
+    productName: order?.lineItems?.nodes[0]?.title,
+    productId: order?.lineItems?.nodes[0]?.product.id,
+    timestamp: new Date(order?.createdAt),
+    productUrl: order?.lineItems?.nodes[0]?.product?.onlineStorePreviewUrl,
+    productImage: order?.lineItems?.nodes[0]?.product?.featuredMedia?.preview?.image?.url
   };
 }

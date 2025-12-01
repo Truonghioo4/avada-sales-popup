@@ -31,9 +31,15 @@ export async function getAllByDomain(shopifyDomain) {
  * @returns {Promise<any>}
  */
 export async function add(data) {
-  const doc = await notificationsRef.add(data);
-  const addedDoc = await doc.get();
-  return presentDataAndFormatDate(addedDoc);
+  if (Array.isArray(data)) {
+    const batch = firestore.batch();
+    data.forEach(item => {
+      const docRef = notificationsRef.doc();
+      batch.set(docRef, item);
+    });
+    return await batch.commit();
+  }
+  return await notificationsRef.add(data);
 }
 
 /**
