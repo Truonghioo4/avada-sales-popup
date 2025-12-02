@@ -11,12 +11,11 @@ import {
   Text
 } from '@shopify/polaris';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
-import {TitleBar, Modal} from '@shopify/app-bridge-react';
 import LoadingPage from '@assets/pages/Loading/LoadingPage';
 import useDeleteApi from '@assets/hooks/api/useDeleteApi';
-import Loading from '@assets/components/Loading';
 import {formatToDate, formatToTimeAgo} from '@assets/helpers/utils/formatTimestamp';
 import usePaginate from '@assets/hooks/api/usePaginate';
+import useConfirmModal from '@assets/hooks/popup/useConfirmModal';
 
 /**
  * Notifications page component
@@ -34,7 +33,6 @@ export default function Notifications() {
   const {deleting, handleDelete} = useDeleteApi({url: '/notifications'});
   const [selectedItems, setSelectedItems] = React.useState([]);
   const [sortValue, setSortValue] = React.useState('DATE_MODIFIED_DESC');
-  const [isOpenModal, setIsOpenModal] = React.useState(false);
 
   const handleSortChange = sortItems => {
     return sortItems.sort((a, b) => {
@@ -45,13 +43,22 @@ export default function Notifications() {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
   };
+
   const handleDeleteBulk = async () => {
     const deletePromises = selectedItems.map(id => handleDelete({id}));
     await Promise.all(deletePromises);
-    setIsOpenModal(false);
+    closeModal();
     setData(prevData => prevData.filter(noti => !selectedItems.includes(noti.id)));
     setSelectedItems([]);
   };
+
+  const {modal, closeModal, openModal} = useConfirmModal({
+    title: 'Remove selected notification(s)?',
+    content: 'This action cannot be undone.',
+    buttonTitle: 'Delete',
+    loading: deleting,
+    confirmAction: handleDeleteBulk
+  });
 
   if (loading) return <LoadingPage />;
   return (
@@ -85,8 +92,7 @@ export default function Notifications() {
               promotedBulkActions={[
                 {
                   content: 'Delete',
-                  onAction: () => setIsOpenModal(true)
-                  // loading: deleting
+                  onAction: () => openModal()
                 }
               ]}
               renderItem={noti => {
@@ -108,7 +114,6 @@ export default function Notifications() {
                 );
               }}
               pagination={{
-                // type: 'pages',
                 label: `${page}/${pageInfo.totalPage}`,
                 hasNext: pageInfo.hasNext,
                 onNext: async () => await nextPage(),
@@ -118,27 +123,7 @@ export default function Notifications() {
             />
           </Card>
         </Layout.Section>
-        <Layout.Section>
-          <Modal open={isOpenModal} onHide={() => setIsOpenModal(false)}>
-            {deleting ? (
-              <Loading />
-            ) : (
-              <p
-                style={{
-                  padding: '20px'
-                }}
-              >
-                This action cannot be undone.
-              </p>
-            )}
-            <TitleBar title="Remove selected notification(s)?">
-              <button variant="primary" loading={true} onClick={handleDeleteBulk}>
-                Delete
-              </button>
-              <button onClick={() => setIsOpenModal(false)}>Cancel</button>
-            </TitleBar>
-          </Modal>
-        </Layout.Section>
+        <Layout.Section>{modal}</Layout.Section>
       </Layout>
     </Page>
   );
