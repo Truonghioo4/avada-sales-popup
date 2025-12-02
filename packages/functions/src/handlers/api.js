@@ -38,6 +38,7 @@ api.use(
       try {
         const shopifyDomain = ctx.state.shopify.shop;
         const shop = await getShopByShopifyDomain(shopifyDomain);
+        // await syncOrdersToNotifications(shop);
         await createWebhooks(shop);
         ctx.body = {success: true};
       } catch (e) {

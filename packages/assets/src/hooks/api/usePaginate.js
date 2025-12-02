@@ -70,6 +70,7 @@ export default function usePaginate({
     onQueryChange,
     onQueriesChange,
     ...fetchApiHook,
-    page: queries.page
+    page: queries.page,
+    handleFetchApi
   };
 }

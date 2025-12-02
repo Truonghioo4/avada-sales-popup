@@ -24,7 +24,7 @@ import useConfirmModal from '@assets/hooks/popup/useConfirmModal';
  */
 export default function Notifications() {
   const PAGE_LIMIT = 5;
-  const {loading, data, setData, pageInfo, prevPage, nextPage, page} = usePaginate({
+  const {loading, data, setData, pageInfo, prevPage, nextPage, page, handleFetchApi} = usePaginate({
     url: '/notifications',
     defaultLimit: PAGE_LIMIT,
     defaultSort: 'timestamp_desc',
@@ -47,8 +47,8 @@ export default function Notifications() {
   const handleDeleteBulk = async () => {
     const deletePromises = selectedItems.map(id => handleDelete({id}));
     await Promise.all(deletePromises);
+    await handleFetchApi();
     closeModal();
-    setData(prevData => prevData.filter(noti => !selectedItems.includes(noti.id)));
     setSelectedItems([]);
   };
 
